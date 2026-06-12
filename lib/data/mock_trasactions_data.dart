@@ -4,10 +4,7 @@ import 'package:spending_summary/data/models/transactions/transactions_categorie
 import 'package:spending_summary/data/models/transactions/transactions_model.dart';
 import 'package:spending_summary/domain/entity/transaction_category_entity.dart';
 
-List<TransactionModel> generateMockTransactions({
-  required List<TransactionCategoryEntity> categories,
-  int count = 57,
-}) {
+List<TransactionModel> generateMockTransactions({int count = 57}) {
   final random = Random();
 
   final notes = [
@@ -55,7 +52,7 @@ List<TransactionModel> generateMockTransactions({
   });
 }
 
-final List<TransactionCategoryEntity> spendingCategories = [
+final List<TransactionCategoryEntity> categories = [
   TransactionCategoryEntity(
     id: '1',
     name: 'Housing',

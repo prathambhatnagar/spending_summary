@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:spending_summary/data/mock_trasactions_data.dart';
+import 'package:provider/provider.dart';
+import 'package:spending_summary/data/repository/transaction_repository.dart';
+import 'package:spending_summary/data/service/transaction_service.dart';
+import 'package:spending_summary/presentation/spend_summary/proivder/spend_summary_provider.dart';
+import 'package:spending_summary/presentation/spend_summary/screen/spending_category_screen.dart';
 
 void main() {
   runApp(MyApp());
-
-  final list = generateMockTransactions(categories: spendingCategories);
-  print(list.length);
 }
 
 class MyApp extends StatelessWidget {
@@ -13,6 +14,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material();
+    return ChangeNotifierProvider(
+      create: (context) => SpendSummaryProvider(
+        transactionRepository: TransactionRepositoryImpl(
+          transactionService: TransactionServiceImpl(),
+        ),
+      )..loadTransactions(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SpendingCategoryScreen(),
+      ),
+    );
   }
 }
